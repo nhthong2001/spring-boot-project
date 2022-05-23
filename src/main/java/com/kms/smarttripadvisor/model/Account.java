@@ -4,64 +4,54 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static javax.persistence.GenerationType.SEQUENCE;
-
 @Entity
 @Table(name = "Account")
 public class Account {
     @Id
-    @SequenceGenerator(
-            name = "account_sequence",
-            sequenceName = "account_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "account_sequence"
-    )
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int id;
-    @Column(name="fulname", columnDefinition = "VARCHAR(255)")
+    @Column(name="fulname")
     public String fulname;
-    @Column(name="link_avatar", columnDefinition = "VARCHAR(255)")
+    @Column(name="link_avatar")
     public String linkAvatar;
-    @Column(name="dob", columnDefinition = "DATE")
+    @Column(name="dob")
     public LocalDate dob;
-    @Column(name="gender", columnDefinition = "BOOLEAN DEFAULT false")
+    @Column(name="gender")
     public boolean gender;
-    @Column(name="link_facebook", columnDefinition = "VARCHAR(255)")
+    @Column(name="link_facebook")
     public String linkFacebook;
-    @Column(name="list_friend_id", columnDefinition = "VARCHAR(255)")
+    @Column(name="list_friend_id")
     public String listFriendId;
-    @Column(name="date_up_vip", columnDefinition = "TIMESTAMP")
+    @Column(name="date_up_vip")
     public LocalDateTime dateUpVip;
-    @Column(name="date_expiration", columnDefinition = "TIMESTAMP")
+    @Column(name="date_expiration")
     public LocalDateTime dateExpiration;
-    @Column(name="address", columnDefinition = "VARCHAR(255)")
+    @Column(name="address")
     public String address;
-    @Column(name="email", columnDefinition = "VARCHAR(255)")
+    @Column(name="email")
     public String email;
-    @Column(name="company_name", columnDefinition = "VARCHAR(255)")
+    @Column(name="company_name")
     public String companyName;
-    @Column(name="description", columnDefinition = "VARCHAR(255)")
+    @Column(name="description")
     public String description;
-    @Column(name="phone_number", columnDefinition = "VARCHAR(255)")
+    @Column(name="phone_number")
     public String phoneNumber;
-    @Column(name="website", columnDefinition = "VARCHAR(255)")
+    @Column(name="website")
     public String website;
-    @Column(name = "unique_id", nullable = false, updatable = false)
+    @Column(name = "unique_id", updatable = false)
     public String unique_id;
-    @Column(name="username", columnDefinition = "VARCHAR(255)")
+    @Column(name="username")
     public String username;
-    @Column(name="password", columnDefinition = "VARCHAR(255)")
+    @Column(name="password")
     public String password;
-    @Column(name="type_account", columnDefinition = "VARCHAR(255)")
-    public String typeAccount;
-    @Column(name="is_delete", nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
-    public boolean isDelete;
+    @Column(name="account_type")
+    public String accountType;
+    @Column(name="is_deleted")
+    public boolean isDeleted;
 
     public Account(int id, String fulname, String linkAvatar, LocalDate dob, boolean gender, String linkFacebook, String listFriendId,
                    LocalDateTime dateUpVip, LocalDateTime dateExpiration, String address, String email, String companyName, String description,
-                   String phoneNumber, String website, String unique_id, String username, String password, String typeAccount, boolean isDelete) {
+                   String phoneNumber, String website, String unique_id, String username, String password, String accountType, boolean isDeleted) {
         this.id = id;
         this.fulname = fulname;
         this.linkAvatar = linkAvatar;
@@ -80,15 +70,15 @@ public class Account {
         this.unique_id = unique_id;
         this.username = username;
         this.password = password;
-        this.typeAccount = typeAccount;
-        this.isDelete = isDelete;
+        this.accountType = accountType;
+        this.isDeleted = isDeleted;
     }
 
     public Account() {
 
     }
     //UserAccount
-    public Account(int id, String fulname, String linkAvatar, LocalDate dob, boolean gender, String linkFacebook, String listFriendId, LocalDateTime dateUpVip, LocalDateTime dateExpiration, String address, String email, String unique_id, String username, String password, String typeAccount, boolean isDelete) {
+    public Account(int id, String fulname, String linkAvatar, LocalDate dob, boolean gender, String linkFacebook, String listFriendId, LocalDateTime dateUpVip, LocalDateTime dateExpiration, String address, String email, String unique_id, String username, String password, String accountType, boolean isDeleted) {
         this.id = id;
         this.fulname = fulname;
         this.linkAvatar = linkAvatar;
@@ -103,11 +93,11 @@ public class Account {
         this.unique_id = unique_id;
         this.username = username;
         this.password = password;
-        this.typeAccount = typeAccount;
-        this.isDelete = isDelete;
+        this.accountType = accountType;
+        this.isDeleted = isDeleted;
     }
     //CompanyAccount
-    public Account(String address, String email, String companyName, String description, String phoneNumber, String website, String unique_id, String username, String password, String typeAccount, boolean isDelete) {
+    public Account(String address, String email, String companyName, String description, String phoneNumber, String website, String unique_id, String username, String password, String accountType, boolean isDeleted) {
         this.address = address;
         this.email = email;
         this.companyName = companyName;
@@ -117,88 +107,8 @@ public class Account {
         this.unique_id = unique_id;
         this.username = username;
         this.password = password;
-        this.typeAccount = typeAccount;
-        this.isDelete = isDelete;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setFulname(String fulname) {
-        this.fulname = fulname;
-    }
-
-    public void setLinkAvatar(String linkAvatar) {
-        this.linkAvatar = linkAvatar;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
-
-    public void setGender(boolean gender) {
-        this.gender = gender;
-    }
-
-    public void setLinkFacebook(String linkFacebook) {
-        this.linkFacebook = linkFacebook;
-    }
-
-    public void setListFriendId(String listFriendId) {
-        this.listFriendId = listFriendId;
-    }
-
-    public void setDateUpVip(LocalDateTime dateUpVip) {
-        this.dateUpVip = dateUpVip;
-    }
-
-    public void setDateExpiration(LocalDateTime dateExpiration) {
-        this.dateExpiration = dateExpiration;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    public void setUnique_id(String unique_id) {
-        this.unique_id = unique_id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setTypeAccount(String typeAccount) {
-        this.typeAccount = typeAccount;
-    }
-
-    public void setDelete(boolean delete) {
-        isDelete = delete;
+        this.accountType = accountType;
+        this.isDeleted = isDeleted;
     }
 
     public int getId() {
@@ -273,11 +183,11 @@ public class Account {
         return password;
     }
 
-    public String getTypeAccount() {
-        return typeAccount;
+    public String getAccountType() {
+        return accountType;
     }
 
-    public boolean isDelete() {
-        return isDelete;
+    public boolean isDeleted() {
+        return isDeleted;
     }
 }

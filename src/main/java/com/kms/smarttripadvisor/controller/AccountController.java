@@ -3,6 +3,8 @@ package com.kms.smarttripadvisor.controller;
 import com.kms.smarttripadvisor.model.Account;
 import com.kms.smarttripadvisor.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,13 +20,15 @@ public class AccountController {
     }
 
     @GetMapping
-    public List<Account> getAllAccount(){
-        return accountService.getAllAccount();
+    public ResponseEntity<List<Account>> getAllAccount(){
+        return new ResponseEntity<>(accountService.getAllAccount(), HttpStatus.OK);
     }
 
     @GetMapping("/{username}")
-    public  Account getAccountByUsername(@PathVariable("username") String username){
-        return accountService.findAccountByUsername(username);
+    public  ResponseEntity<Account> getAccountByUsername(@PathVariable("username") String username){
+        Account account = accountService.findAccountByUsername(username);
+        if (account == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
 }
